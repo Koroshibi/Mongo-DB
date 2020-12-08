@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const airbnbSchema = mongoose.Schema({
-  id: Number,
+  id: String,
   listing_url: String,
   scrape_id: String,
   last_scraped: String,
@@ -76,4 +76,5 @@ const airbnbSchema = mongoose.Schema({
   calculated_host_listings_count_shared_rooms: String,
   reviews_per_month: String,
 });
-module.exports = mongoose.model('Airbnb', airbnbSchema)
+
+module.exports = mongoose.model('Model', airbnbSchema, 'airbnb')

@@ -1,3 +1,9 @@
-const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://localhost:27017/Mongo-training', {useNewUrlParser: true, useUnifiedTopology: true});
+const http = require('http');
+const app = require('./app');
+
+app.set('port', 3000)
+
+const server = http.createServer(app);
+
+server.listen(3000);
