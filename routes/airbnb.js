@@ -3,7 +3,6 @@ const router = express.Router();
 const path = require('path');
 const airbnbModel = require('../models/airbnb')
 
-
 router.get('/', async (req , res) => {
   const { sort, filter, field } = req.query
 

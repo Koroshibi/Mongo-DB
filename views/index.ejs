@@ -24,13 +24,38 @@
     </table>
 
     <script>
+      const getObjectLocation = () => {
+        const splitLocation = location.search.replace('?', '').split('&')
+        return splitLocation.reduce((acc, current) => {
+          const splitCurrent = current.replace('?', '').split('=')
+          return {
+            ...acc,
+            [splitCurrent[0]]: splitCurrent[1]
+          }
+        }, {})
+      }
+
       const setSearchDate = () => {
         const dateToFilter = document.getElementById('filteredDate');
         location.search = `${location.search.length > 0 ? '' : '?'}filter=${dateToFilter.value}`
       }
 
-      const setFilterField = (field) => {
-        location.search = `${location.search.length > 0 ? '' : '?'}filter=${dateToFilter.value}`
+      const setFilterField = (currentField) => {
+        const currentLocation = getObjectLocation()
+        console.log({currentLocation})
+        const filter = currentLocation.filter ? currentLocation.filter : null
+        let sort = currentLocation.sort ? currentLocation.sort : null
+        let field = currentLocation.field ? currentLocation.field : null
+
+        if (field === currentField) {
+          console.log('sort', sort)
+          sort = (sort === 'ASC' ? 'DESC' : 'ASC')
+        } else {
+          field = currentField
+          sort = 'ASC'
+        }
+
+        location.search = `${filter ? `filter=${filter}` : ''}${filter ? '&' : ''}${sort ? `sort=${sort}` : ''}${sort ? '&' : ''}${field ? `field=${field}` : ''}`
       }
     </script>
   </body>
