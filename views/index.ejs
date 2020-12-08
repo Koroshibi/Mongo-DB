@@ -6,6 +6,16 @@
   <body>
     <input type="date" id="filteredDate" />
     <button type="submit" onclick="setSearchDate()">Valider</button>
+    <select name="page" id="page" onchange="setPage()">
+      <% for(let i=0; i< total / 10; i++) {%>
+        <option value="<%= i %>"
+        <% if (i === parseInt(page || 0, 10)) { %>
+          selected
+        <% } %>
+        ><%= i + 1 %></option>
+      <% } %>
+    </select>
+    <button onclick="location.pathname = '/airbnb/create'">Ajouter</button>
     <table style="border: 1px solid black;">
       <tr>
         <th style="border: 1px solid black;" onclick="setFilterField('id')">ID</th>
@@ -17,12 +27,11 @@
         <tr onClick="location.pathname = '/airbnb/<%= airbnb.id %>'" style="border: 1px solid black;">
           <td style="border: 1px solid black;"><%= airbnb.id %></td>
           <td style="border: 1px solid black;"><%= airbnb.name %></td>
-          <td style="border: 1px solid black;"><%= airbnb.description %></td>
+          <td style="border: 1px solid black;"><%= airbnb.description.replace(/<br\/>/gi, '\n') %>')</td>
           <td style="border: 1px solid black;"><%= airbnb.last_scraped %></td>
         </tr>
       <% }) %>
     </table>
-
     <script>
       const getObjectLocation = () => {
         const splitLocation = location.search.replace('?', '').split('&')
@@ -37,7 +46,10 @@
 
       const setSearchDate = () => {
         const dateToFilter = document.getElementById('filteredDate');
-        location.search = `${location.search.length > 0 ? '' : '?'}filter=${dateToFilter.value}`
+        console.log(dateToFilter)
+        if (dateToFilter && dateToFilter.value && dateToFilter.value.length > 0) {
+          location.search = `${location.search.length > 0 ? '' : '?'}filter=${dateToFilter.value}`
+        }
       }
 
       const setFilterField = (currentField) => {
@@ -56,6 +68,16 @@
         }
 
         location.search = `${filter ? `filter=${filter}` : ''}${filter ? '&' : ''}${sort ? `sort=${sort}` : ''}${sort ? '&' : ''}${field ? `field=${field}` : ''}`
+      }
+
+      const setPage = (index) => {
+        const select = document.getElementById('page')
+        const value = select.options[select.selectedIndex].value;
+        location.search = `${location.search.length > 0 ? '' : '?'}page=${value}`
+      }
+      const replaceHTMLWithLineBreaks = (string) => {
+        console.log(string)
+        return string !== undefined ? string.replace(/<br\/>/gi, '\n') : "";
       }
     </script>
   </body>
