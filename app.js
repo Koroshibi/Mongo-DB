@@ -10,6 +10,8 @@ mongoose.connect('mongodb://localhost:27017/Mongo-training', {useNewUrlParser: t
   console.log('Connected to Mongo-training')
 })
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
 app.set('view engine', 'ejs');
 app.use('/', airbnbRoutes);
 

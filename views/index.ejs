@@ -4,8 +4,15 @@
   </head>
 
   <body>
-
+    <input type="date" id="filteredDate" />
+    <button type="submit" onclick="setSearchDate()">Valider</button>
     <table style="border: 1px solid black;">
+      <tr>
+        <th style="border: 1px solid black;" onclick="setFilterField('id')">ID</th>
+        <th style="border: 1px solid black;" onclick="setFilterField('name')">Name</th>
+        <th style="border: 1px solid black;" onclick="setFilterField('description')">Description</th>
+        <th style="border: 1px solid black;" onclick="setFilterField('last_scraped')">Last scraped</th>
+      </tr>
       <% data.forEach((airbnb) => { %>
         <tr onClick="location.pathname = '/airbnb/<%= airbnb.id %>'" style="border: 1px solid black;">
           <td style="border: 1px solid black;"><%= airbnb.id %></td>
@@ -16,6 +23,16 @@
       <% }) %>
     </table>
 
+    <script>
+      const setSearchDate = () => {
+        const dateToFilter = document.getElementById('filteredDate');
+        location.search = `${location.search.length > 0 ? '' : '?'}filter=${dateToFilter.value}`
+      }
+
+      const setFilterField = (field) => {
+        location.search = `${location.search.length > 0 ? '' : '?'}filter=${dateToFilter.value}`
+      }
+    </script>
   </body>
 
 </html>

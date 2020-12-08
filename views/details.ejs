@@ -4,16 +4,18 @@
   </head>
 
   <body>
-
-    <p>id : <%= data.id %></p>
-    <p>name : <%= data.name %></p>
-    <p>description : <%= data.description %></p>
-    <p>last_scraped : <%= data.last_scraped %></p>
+    <p>id : <%= data ? data.id : '' %></p>
+    <p>name : <%= data ? data.name : '' %></p>
+    <p>description : <%= data ? data.description : '' %></p>
+    <p>last_scraped : <%= data ? data.last_scraped : '' %></p>
     <button onclick="location.pathname += '/edit'">
       Editer
     </button>
     <button onclick="location.pathname += '/delete'">
       Supprimer
+    </button>
+    <button onclick="location.pathname = '/'">
+      Retour
     </button>
   </body>
 
