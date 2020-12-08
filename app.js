@@ -6,7 +6,7 @@ const app = express();
 
 const airbnbRoutes = require('./routes/airbnb');
 
-mongoose.connect('mongodb://localhost:27017/Mongo-training', {useNewUrlParser: true, useUnifiedTopology: true}).then(async () => {
+mongoose.connect('mongodb+srv://PaulGodard:PaulGodard@cluster0.4ymyw.gcp.mongodb.net/Mongo-training', {useNewUrlParser: true, useUnifiedTopology: true}).then(async () => {
   console.log('Connected to Mongo-training')
 })
 
